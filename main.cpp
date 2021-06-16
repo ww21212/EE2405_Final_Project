@@ -264,8 +264,8 @@ void parking(Arguments *in, Reply *out)
 
 void RPC_car(Arguments *in, Reply *out)
 {
-    int R1 = in->getArg<double>();
-    int R2 = in->getArg<double>();
+    int Region = in->getArg<double>();
+    int Dir = in->getArg<double>();
     double D1 = in->getArg<double>();
     double D2 = in->getArg<double>();
     double end;
@@ -273,51 +273,51 @@ void RPC_car(Arguments *in, Reply *out)
     double ang = atan(D1 / D2) * 180 / 3.14;
     double D = sqrt(D1 * D1 + D2 * D2);
 
-    if (R1 == 1)
+    if (Region == 1)
     {
-        if (R2 == 0)
+        if (Dir == 0)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (180 + ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 7)
+        else if (Dir == 7)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (135 + ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 6)
+        else if (Dir == 6)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (90 + ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 5)
+        else if (Dir == 5)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (45 + ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 4)
+        else if (Dir == 4)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * ang; i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 1)
+        else if (Dir == 1)
         {
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (135 - ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 2)
+        else if (Dir == 2)
         {
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (90 - ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 3)
+        else if (Dir == 3)
         {
             if (45 - ang > 0)
             {
@@ -333,27 +333,27 @@ void RPC_car(Arguments *in, Reply *out)
                 ThisThread::sleep_for(10ms);
         }
     }
-    else if (R1 == 2)
+    else if (Region == 2)
     {
-        if (R2 == 0)
+        if (Dir == 0)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (180 - ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 7)
+        else if (Dir == 7)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (135 - ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 6)
+        else if (Dir == 6)
         {
             car.turn(100, 0.01);
             for (int i = 0; i < 1.5 * (90 - ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 5)
+        else if (Dir == 5)
         {
             if (45 - ang > 0)
             {
@@ -368,25 +368,25 @@ void RPC_car(Arguments *in, Reply *out)
             for (int i = 0; i < 1.5 * end; i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 4)
+        else if (Dir == 4)
         {
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * ang; i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 1)
+        else if (Dir == 1)
         {
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (135 + ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 2)
+        else if (Dir == 2)
         {
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (90 + ang); i++)
                 ThisThread::sleep_for(10ms);
         }
-        else if (R2 == 3)
+        else if (Dir == 3)
         {
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (45 + ang); i++)
@@ -396,14 +396,14 @@ void RPC_car(Arguments *in, Reply *out)
     car.goStraightCalib(100);
     for (int n = 0; n < 4.8 * D; n++)
         ThisThread::sleep_for(10ms);
-    if (R1 == 1)
+    if (Region == 1)
     {
         car.turn(100, -0.01);
         for (int i = 0; i < 1.5 * ang; i++)
             ThisThread::sleep_for(10ms);
         ThisThread::sleep_for(500ms);
     }
-    else if (R1 == 2)
+    else if (Region == 2)
     {
         car.turn(100, 0.01);
         for (int i = 0; i < 1.5 * ang; i++)
@@ -419,28 +419,28 @@ void RPC_car(Arguments *in, Reply *out)
 
 void calib(Arguments *in, Reply *out)
 {
-    double Dx = in->getArg<double>();
-    double Dy = in->getArg<double>();
-    double Dz = in->getArg<double>();
+    double Dirx = in->getArg<double>();
+    double Diry = in->getArg<double>();
+    double Dirz = in->getArg<double>();
     double Rx = in->getArg<double>();
     double Ry = in->getArg<double>();
     double Rz = in->getArg<double>();
 
     double fix_ang;
-    printf("Dz = %f\n", Dz);
+    printf("Dirz = %f\n", Dirz);
     if (Ry > 8 && Ry < 90)
     {
-        double D = fabs(Dz) * tan(Ry * 3.14 / 180.0f);
-        if (Dx < 0)
+        double D = fabs(Dirz) * tan(Ry * 3.14 / 180.0f);
+        if (Dirx < 0)
         {
-            fix_ang = atan(fabs(Dx) / fabs(Dz));
+            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (90 - Ry + fix_ang); i++)
                 ThisThread::sleep_for(10ms);
         }
         else
         {
-            fix_ang = atan(fabs(Dx) / fabs(Dz));
+            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (90 - Ry - fix_ang); i++)
                 ThisThread::sleep_for(10ms);
@@ -457,17 +457,17 @@ void calib(Arguments *in, Reply *out)
     }
     else if (Ry > 270 && Ry < 352)
     {
-        double D = fabs(Dz) / tan((360 - Ry) * 3.14 / 180.0f);
-        if (Dx > 0)
+        double D = fabs(Dirz) / tan((360 - Ry) * 3.14 / 180.0f);
+        if (Dirx > 0)
         {
-            fix_ang = atan(fabs(Dx) / fabs(Dz));
+            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
             car.turn(100, 0.01);
             for (int i = 0; i < 1.4 * (90 - (360 - Ry) + fix_ang); i++) //360 - 10 degree ca
                 ThisThread::sleep_for(10ms);
         }
         else
         {
-            fix_ang = atan(fabs(Dx) / fabs(Dz));
+            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
             car.turn(100, 0.01);
             for (int i = 0; i < 1.4 * (90 - (360 - Ry) - fix_ang); i++) //360 - 10 degree ca
                 ThisThread::sleep_for(10ms);
