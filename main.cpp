@@ -506,25 +506,3 @@ void calib(Arguments *in, Reply *out)
 
     ThisThread::sleep_for(10ms);
 }
-
-/*void dis_check(void) {
-    while (1) {
-        printf("hi\r\n");
-        float val;
-        
-        ping.output();
-        ping = 0; wait_us(200);
-        ping = 1; wait_us(5);
-        ping = 0; wait_us(5);
-        ping.input();
-        while(ping.read() == 0);
-        t.start();
-        while(ping.read() == 1);
-        val = t.read();
-        ping_dis = val*17700.4f;
-        printf("Ping = %lf\r\n", ping_dis);
-        t.stop();
-        t.reset();
-        ThisThread::sleep_for(10ms);
-    }
-}*/
