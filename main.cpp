@@ -419,28 +419,28 @@ void RPC_car(Arguments *in, Reply *out)
 
 void calib(Arguments *in, Reply *out)
 {
-    double Dirx = in->getArg<double>();
-    double Diry = in->getArg<double>();
-    double Dirz = in->getArg<double>();
+    double Disx = in->getArg<double>();
+    double Disy = in->getArg<double>();
+    double Disz = in->getArg<double>();
     double Rx = in->getArg<double>();
     double Ry = in->getArg<double>();
     double Rz = in->getArg<double>();
 
     double fix_ang;
-    printf("Dirz = %f\n", Dirz);
+    printf("Disz = %f\n", Disz);
     if (Ry > 8 && Ry < 90)
     {
-        double D = fabs(Dirz) * tan(Ry * 3.14 / 180.0f);
-        if (Dirx < 0)
+        double D = fabs(Disz) * tan(Ry * 3.14 / 180.0f);
+        if (Disx < 0)
         {
-            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
+            fix_ang = atan(fabs(Disx) / fabs(Disz));
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (90 - Ry + fix_ang); i++)
                 ThisThread::sleep_for(10ms);
         }
         else
         {
-            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
+            fix_ang = atan(fabs(Disx) / fabs(Disz));
             car.turn(100, -0.01);
             for (int i = 0; i < 1.5 * (90 - Ry - fix_ang); i++)
                 ThisThread::sleep_for(10ms);
@@ -457,17 +457,17 @@ void calib(Arguments *in, Reply *out)
     }
     else if (Ry > 270 && Ry < 352)
     {
-        double D = fabs(Dirz) / tan((360 - Ry) * 3.14 / 180.0f);
-        if (Dirx > 0)
+        double D = fabs(Disz) / tan((360 - Ry) * 3.14 / 180.0f);
+        if (Disx > 0)
         {
-            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
+            fix_ang = atan(fabs(Disx) / fabs(Disz));
             car.turn(100, 0.01);
             for (int i = 0; i < 1.4 * (90 - (360 - Ry) + fix_ang); i++) //360 - 10 degree ca
                 ThisThread::sleep_for(10ms);
         }
         else
         {
-            fix_ang = atan(fabs(Dirx) / fabs(Dirz));
+            fix_ang = atan(fabs(Disx) / fabs(Disz));
             car.turn(100, 0.01);
             for (int i = 0; i < 1.4 * (90 - (360 - Ry) - fix_ang); i++) //360 - 10 degree ca
                 ThisThread::sleep_for(10ms);
